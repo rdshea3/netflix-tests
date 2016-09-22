@@ -27,6 +27,7 @@ class TestNetflix(TestCase):
     def setUp(self):
         Netflix.mean_user_ratings = {0: 3.0, 1: 4.0}
         Netflix.mean_movie_ratings = {0: 2.0}
+        Netflix.actual_ratings = {0: {0: 3.0, 1: 5.0, 2: 4.0}}
 
     # ----
     # eval
@@ -75,21 +76,21 @@ class TestNetflix(TestCase):
         w = StringIO()
         Netflix.netflix_solve(r, w, False)
         self.assertEqual(
-            w.getvalue(), "0:\n1.2999999999999998\n")
+            w.getvalue(), "0:\n1.3\nRMSE: 1.7\n")
 
     def test_solve_2(self):
         r = StringIO("0:\n1\n")
         w = StringIO()
         Netflix.netflix_solve(r, w, False)
         self.assertEqual(
-            w.getvalue(), "0:\n2.3\n")
+            w.getvalue(), "0:\n2.3\nRMSE: 2.7\n")
 
     def test_solve_3(self):
         r = StringIO("0:\n2\n")
         w = StringIO()
         Netflix.netflix_solve(r, w, False)
         self.assertEqual(
-            w.getvalue(), "0:\n2.0\n")
+            w.getvalue(), "0:\n2.0\nRMSE: 2.0\n")
 
 # ----
 # main
